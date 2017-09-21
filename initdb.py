@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String, Float, DateTime, Boolean

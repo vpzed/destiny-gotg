@@ -5,7 +5,7 @@ import requests
 
 write_files = True
 URL_START = "https://bungie.net/Platform"
-APP_PATH = "/etc/destinygotg"
+APP_PATH = "./etc"
 
 def testscript():
     # Specify a URL

@@ -1,14 +1,16 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import os
-import json, sqlite3
+import json
+import sqlite3
+import requests
+import zipfile
+import shutil
+#import discordBot
 import initdb
 import builddb
-import requests, zipfile
-import shutil
-import discordBot
 
-APP_PATH = "/etc/destinygotg"
-DBPATH = f"{APP_PATH}/guardians.db"
+APP_PATH = "./etc"
+DBPATH = f"{APP_PATH}/guardians2.db"
 
 def check_db():
     """Check to see if a database exists"""
@@ -30,17 +32,17 @@ def get_manifest():
     mani_url = f"http://www.bungie.net/{manifest['Response']['mobileWorldContentPaths']['en']}"
     #Download the file, write it to MANZIP
     r = requests.get(mani_url)
-    with open(f"{APP_PATH}/MANZIP", "wb") as zipfile:
-        zipfile.write(r.content)
+    with open(f"{APP_PATH}/MANZIP", "wb") as manzip:
+        manzip.write(r.content)
     #Extract the file contents, and rename the extracted file
-    with zipfile.ZipFile(f"{APP_PATH}/MANZIP") as zipfile:
-        name = zipfile.namelist()
-        zipfile.extractall()
+    with zipfile.ZipFile(f"{APP_PATH}/MANZIP") as myzip:
+        name = myzip.namelist()
+        myzip.extractall()
     shutil.move(name[0], os.environ['MANIFEST_CONTENT'])
 
 def build_db():
     """Main function to build the full database"""
     builddb.build_db()
 
-def run_discord(engine):
-    discordBot.run_bot(engine)
+# def run_discord(engine):
+#     discordBot.run_bot(engine)

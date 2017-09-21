@@ -1,11 +1,11 @@
-#!/usr/bin/python3.6
+#!/usr/bin/env python
 import os
 import sys
 import model
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-APP_PATH = "/etc/destinygotg"
+APP_PATH = "./etc"
 DBPATH = f"{APP_PATH}/guardians2.db"
 
 # Create the application-level engine and SessionMaker objects
@@ -40,8 +40,8 @@ def main():
     model.init_db(engine)
     model.build_db()
     
-    model.run_discord(engine)
-    #run_flask()
+    # model.run_discord(engine)
+    # run_flask()
 
 def set_app_path():
     """Ensures the APP_PATH dir exists"""

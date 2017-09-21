@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #This file (with update option set) is run daily; it pulls new clan members and new accounts. For existing members, it adds newly created characters, and updates all existing stats.
 #Perhaps most importantly, it pulls in new activities completed by all members.
 import os
@@ -35,16 +35,16 @@ def timeit(func, args=None):
 def build_db():
     """Main function to build the full database"""
     start_time = time.clock()
-    # handle_bungie_table()
-    # handle_account_table()
-    # handle_character_table()
-    # handle_account_updates()
-    # handle_character_total_table()
-    # handle_weapon_stats_table()
-    # handle_exotic_weapon_table()
-    # handle_medal_table()
-    # handle_filling_account_tables()
-    # handle_reference_tables()
+    handle_bungie_table()
+    handle_account_table()
+    handle_character_table()
+    handle_account_updates()
+    handle_character_total_table()
+    handle_weapon_stats_table()
+    #handle_exotic_weapon_table()
+    #handle_medal_table()
+    handle_filling_account_tables()
+    #handle_reference_tables()
     print("--- %s seconds ---" % (time.clock() - start_time))
 
 #info_map = {'attrs':{'attr1':'attr1Name', ...}
@@ -120,7 +120,7 @@ def define_params(query_table, info_map, url_function, iterator, table, alt_inse
         #Attrs are the attributes associated with the elem. User.id or user.membership_type, for example. AKA fields in the database.
         attr_map = {}
         for (key, value) in info_map['attrs'].items():
-            try: 
+            try:
                 attr_map[key] = getattr(elem, value)
             except AttributeError:
                 attr_map[key] = getattr(session.query(Account).filter_by(id=attr_map['membership_id']).first(), value)
@@ -554,7 +554,7 @@ def build_value_dict(target_map, attr_map):
 
 if __name__ == "__main__":
     # load_config for testing purposes
-    APP_PATH = "/etc/destinygotg"
+    APP_PATH = "./etc"
     load_config()
     import time
     start_time = time.time()
